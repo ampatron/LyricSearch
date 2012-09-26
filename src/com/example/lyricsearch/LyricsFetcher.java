@@ -15,8 +15,8 @@ public class LyricsFetcher extends Lyrics {
 	public static final int DID_ERROR = Lyrics.DID_ERROR;
 	public static final int DID_FAIL = Lyrics.DID_FAIL;
 	public static final int IS_TRYING = Lyrics.IS_TRYING;
-	
-	private static final int NO_CONNECTION = 0;
+	public static final int NO_CONNECTION = Lyrics.IS_TRYING+1;
+
 	enum LyricSearchResults {SUCCESS, NO_CONNECTION, NO_LYRICS};
 
 	
@@ -55,10 +55,7 @@ public class LyricsFetcher extends Lyrics {
 	@Override
 	public void fetchLyrics() {
 		if (!canFetchLyrics()) {
-			Message message = Message.obtain(mLyrHandler , Lyrics.DID_FAIL);
-			Bundle messageData = new Bundle();
-			messageData.putInt("error_code", NO_CONNECTION);
-			message.setData(messageData);
+			Message message = Message.obtain(mLyrHandler , NO_CONNECTION);
     		mLyrHandler.sendMessage(message);
 			return;
 		}

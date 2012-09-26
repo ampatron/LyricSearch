@@ -33,4 +33,37 @@
         android:onClick="onClick"
         android:text="Search" />
 
+    <CheckBox
+        android:id="@+id/az"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="60dp"
+        android:text="az" />
+
+    <CheckBox
+        android:id="@+id/metro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/az"
+        android:text="metro" />
+
+    <CheckBox
+        android:id="@+id/lyrdb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/metro"
+        android:text="lyrdb" />
+
+    <CheckBox
+        android:id="@+id/chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lyrdb"
+        android:text="chart" />
+
 </RelativeLayout>

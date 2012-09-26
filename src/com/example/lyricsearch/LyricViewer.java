@@ -78,30 +78,40 @@ public class LyricViewer extends Activity {
 
 	private Handler getLoadHandler() {
 		Handler handler = new Handler() {
+			boolean connectionError = false; 
 			public void handleMessage(Message message) {
 				switch (message.what) {
-				case Lyrics.DID_TRY:
+				case LyricsFetcher.DID_TRY://failed: a specific provider
+					Log.v(TAG, "did try");
 					Toast.makeText(getApplicationContext(),
 							(((String) message.obj)) + " failed!",
 							Toast.LENGTH_SHORT).show();
 					break;
-				case Lyrics.DID_LOAD:
+				case LyricsFetcher.DID_LOAD://has lyrics
+					Log.v(TAG, "did load");
 					setLyrics();
 					break;
-				case Lyrics.DID_FAIL:
-					Toast.makeText(getApplicationContext(),
-							"Lyrics not found!", Toast.LENGTH_SHORT).show();
-					setLyrics();
+				case LyricsFetcher.DID_FAIL:
+					Log.v(TAG, "did fail");
+					message.getData();
+					if (!connectionError)
+						mText.setText("no lyrics");
+					else
+						mText.setText("error connection");
 					break;
-				case Lyrics.DID_ERROR:
-					Toast.makeText(getApplicationContext(),
-							"An error occured!", Toast.LENGTH_SHORT).show();
-					setLyrics();
+				case LyricsFetcher.NO_CONNECTION:
+					Log.v(TAG, "no connection");
+					message.getData();
+					mText.setText("error connection");
+					connectionError = true;
 					break;
-				case Lyrics.IS_TRYING:
-					Toast.makeText(getApplicationContext(),
-							"Trying " + ((String) message.obj),
-							Toast.LENGTH_SHORT).show();
+				case LyricsFetcher.DID_ERROR:
+					Log.v(TAG, "did error");
+					connectionError = true;
+					break;
+				case Lyrics.IS_TRYING://trying a provider
+					Log.v(TAG, "is trying");
+					connectionError = false;
 					break;
 				}
 			}

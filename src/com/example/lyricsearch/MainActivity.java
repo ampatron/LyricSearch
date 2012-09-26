@@ -1,5 +1,6 @@
 package com.example.lyricsearch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -7,8 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.jlyr.providers.AZLyricsProvider;
 import com.jlyr.util.ProvidersCollection;
 
 public class MainActivity extends Activity {
@@ -51,9 +54,27 @@ public class MainActivity extends Activity {
 		//sourcesList.toArray(new String[] {});
 		List<String> providersCollection = ProvidersCollection.getAll();
 		int providersCount = providersCollection.size();
-		String[] sources = new String[providersCount];
-		for (int i = 0; i < providersCount; ++i)
-			sources[i] = providersCollection.get(i); 
-		return sources;
+		ArrayList<String> sources = new ArrayList<String>();
+
+		CheckBox box = (CheckBox) findViewById(R.id.az);
+		if (box.isChecked()) {
+			sources.add(providersCollection.get(0));
+		}
+		box = (CheckBox) findViewById(R.id.lyrdb);
+		if (box.isChecked()) {
+			sources.add(providersCollection.get(2));
+		}		
+		box = (CheckBox) findViewById(R.id.metro);
+		if (box.isChecked()) {
+			sources.add(providersCollection.get(1));
+		}
+		box = (CheckBox) findViewById(R.id.chart);
+		if (box.isChecked()) {
+			sources.add(providersCollection.get(3));
+		}
+		String[] resources = new String[sources.size()];
+		for (int i = 0; i < sources.size(); ++i)
+			resources[i] = sources.get(i); 
+		return resources;
 	}
 }
