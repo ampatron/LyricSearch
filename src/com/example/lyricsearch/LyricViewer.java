@@ -77,7 +77,7 @@ public class LyricViewer extends Activity {
 	}
 
 	private Handler getLoadHandler() {
-		Handler handler = new Handler() {
+		return new Handler() {
 			boolean connectionError = false; 
 			public void handleMessage(Message message) {
 				switch (message.what) {
@@ -116,7 +116,6 @@ public class LyricViewer extends Activity {
 				}
 			}
 		};
-		return handler;
 	}
 
 	private void setLyrics() {
